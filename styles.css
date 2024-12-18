@@ -1,0 +1,102 @@
+/* Apply background image to the entire page */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url('./images/form_bg.png'); /* Replace with correct image path */
+  background-size: cover;  /* Ensures the image covers the entire page */
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Ensure the body takes the full viewport height */
+  display: flex;
+  justify-content: flex-end; /* Align content to the right */
+  align-items: center;
+  text-align: center; /* Center the content */
+}
+
+/* Style for the login form */
+.form1 {
+  background-color: rgba(249, 240, 240, 0.8); /* Semi-transparent white */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(35, 3, 3, 0.975);
+  width: 550px;
+  height: 400px;
+  display: flex;
+  justify-content: center; /* Center form content horizontally */
+  align-items: center;
+  text-align: left;
+  margin-right: 13%;
+  
+
+}
+  .login-form {
+    background-color: rgba(249, 240, 240, 0.8); /* Semi-transparent white */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(35, 3, 3, 0.975);
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center; /* Center form content horizontally */
+    align-items: center;
+    text-align: left;
+  }
+/* Form group styles */
+.form-group {
+  display: flex;
+  align-items: center;  /* Vertically center-align the label and input */
+  margin-bottom: 15px;
+}
+
+/* Style the label */
+label {
+  width: 20px;  /* Fixed width for the label */
+  margin-right: 10px;  /* Space between the label and input */
+  font-size: 14px;
+  color: #555;
+}
+
+/* Style the input fields */
+input {
+  flex: 1;  /* Allow input field to take remaining space */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 80%;
+}
+
+input::placeholder {
+  color: #aaa;  /* Light gray color for placeholder text */
+  font-size: 14px;  /* Same size as input text */
+  font-style: italic;  /* Italicize placeholder text */
+}
+
+/* Button styles */
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #5c67f2;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #dbb312;
+}
+
+/* Style for the h2 tag inside the form */
+h2 {
+  font-size: 45px;  /* Set the font size */
+  color: #333;      /* Dark gray color for the text */
+  margin-bottom: 20px; /* Space below the h2 tag */
+  text-align: center;  /* Center the text */
+  font-weight: bold;   /* Make the text bold */
+  font-family:'Times New Roman', Times, serif;
+  margin-left:auto;
+}

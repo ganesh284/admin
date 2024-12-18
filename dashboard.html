@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  
+  <script>document.addEventListener("DOMContentLoaded", () => {
+    const durationDropdown = document.getElementById("duration");
+    const monthsDropdown = document.getElementById("months");
+    const startDateInput = document.getElementById("start-date");
+    const toField = document.getElementById("to");
+    const cityField = document.getElementById("city");
+    const totalOutput = document.getElementById("total-output");
+  
+    const calculateTotal = () => {
+      const duration = durationDropdown.value;
+      const months = monthsDropdown.value;
+      const startDateValue = startDateInput.value;
+  
+      if (duration === "select" || months === "select" || !startDateValue) {
+        totalOutput.textContent = "Please select valid options for duration, months, and start date.";
+        return;
+      }
+  
+      let pricePerMonth = 0;
+  
+      if (duration === "20") {
+        if (months === "1") pricePerMonth = 1000;
+        else if (months === "3") pricePerMonth = 3000;
+        else if (months === "6") pricePerMonth = 6000;
+        else if (months === "12") pricePerMonth = 12000;
+      } else if (duration === "30") {
+        if (months === "1") pricePerMonth = 1200;
+        else if (months === "3") pricePerMonth = 3600;
+        else if (months === "6") pricePerMonth = 7200;
+        else if (months === "12") pricePerMonth = 14400;
+      } else if (duration === "50") {
+        if (months === "1") pricePerMonth = 1500;
+        else if (months === "3") pricePerMonth = 4500;
+        else if (months === "6") pricePerMonth = 9000;
+        else if (months === "12") pricePerMonth = 18000;
+      }
+  
+      // Calculate end date
+      const startDate = new Date(startDateValue);
+      const endDate = new Date(startDate);
+      endDate.setMonth(endDate.getMonth() + parseInt(months));
+  
+      totalOutput.textContent = `Total Money: ₹${pricePerMonth}`;
+  
+      // Pass data to invoice.html via localStorage
+      localStorage.setItem("invoiceData", JSON.stringify({
+        to: toField.value,
+        city: cityField.value,
+        duration,
+        months,
+        startDate: startDate.toISOString().split("T")[0],
+        endDate: endDate.toISOString().split("T")[0],
+        total: pricePerMonth
+      }));
+    };
+  
+    // Add event listener for dropdown changes
+    monthsDropdown.addEventListener("change", calculateTotal);
+    durationDropdown.addEventListener("change", calculateTotal);
+    startDateInput.addEventListener("change", calculateTotal);
+  });
+  
+  </script>
+  
+</head>
+<body>
+  
+  <div class="dashboard">
+    <div>   <img src="./images/header.png" alt="Company Logo" class="header-logo" style="max-width: 100%;"></div>
+    <h1>Welcome to Admin Dashboard</h1>
+
+    <!-- Quotation Form -->
+    <div class="quotation">
+      <h2>Generate Quotation</h2>
+      <form id="quotation-form">
+        <div class="form-group">
+          <label for="to">To:</label>
+          <input type="text" id="to" name="to" placeholder="Enter recipient name" required>
+        </div>
+        <div class="form-group">
+          <label for="city">City:</label>
+          <input type="text" id="city" name="city" placeholder="Enter city name" required>
+        </div>
+        <div class="form-group">
+          <label for="start-date">Start Date:</label>
+          <input type="date" id="start-date" name="start-date" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="duration">Duration (in seconds):</label>
+          <select id="duration" name="duration" required>
+            <option value="select">Select</option>
+            <option value="20">20 seconds</option>
+            <option value="30">30 seconds</option>
+            <option value="50">50 seconds</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="months">Months:</label>
+          <select id="months" name="months" required>
+            <option value="select">Select</option>
+            <option value="1">1 month</option>
+            <option value="3">3 months</option>
+            <option value="6">6 months</option>
+            <option value="12">12 months</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <p>The above pricing is valid only if we agree for a 6-month contract | Quote Validity: 1 Week</p>
+          <p>GST/Taxes Not Included in Pricing</p>
+        </div>
+        <div class="output" id="total-output">Total Money: ₹0</div>
+      </form>
+      <a href="pl.html" target="_blank">Go to Invoice Page</a>
+    </div>
+    <div>   <img src="./images/footer.png" alt="Company Logo" class="header-logo" style="max-width: 300%;"></div>
+  </div>
+  
+</body>
+</html>
