@@ -31,7 +31,33 @@ body {
   
   .form-group {
     margin-bottom: 15px;
+    font-family: Arial, sans-serif;
   }
+  .form-group {
+    margin-bottom: 15px;
+    font-family: Arial, sans-serif;
+  }
+  
+ 
+  
+  input[type="date"] {
+    width: 100%;
+    max-width: 96%;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  
+  input[type="date"]:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+  
   
   label {
     display: block;
