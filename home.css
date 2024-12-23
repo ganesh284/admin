@@ -1,0 +1,268 @@
+ 
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Header Image */
+        .header-image {
+            width: 100%;
+            height: 150px;
+            background-image: url('header-image.jpg'); /* Replace with the actual image URL */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Page Content */
+        .page-content {
+            display: flex;
+            flex: 1;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 10px 15px;
+            margin: 5px 0;
+            background: #34495e;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .sidebar ul li:hover {
+            background: #1abc9c;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            background-color: #ecf0f1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* Achievements Section */
+.achievements {
+    background-color: #f4f4f9; /* Light background for the achievements */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-bottom: 20px;
+  }
+  
+  .achievements h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+    text-transform: uppercase; /* Make the title uppercase for emphasis */
+    border-bottom: 2px solid #ddd; /* A subtle underline */
+    padding-bottom: 10px;
+  }
+  
+  .achievements ul {
+    list-style-type: none; /* Remove bullet points */
+    padding-left: 0;
+  }
+  
+  .achievements ul li {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 10px; /* Space between list items */
+    padding-left: 20px;
+    position: relative;
+  }
+  
+  .achievements ul li:before {
+    content: "✔"; /* Add a check mark symbol before each list item */
+    position: absolute;
+    left: 0;
+    color: green;
+    font-size: 1.2em;
+    top: 50%;
+    transform: translateY(-50%); /* Center the check mark vertically */
+  }
+  
+  /* Tasks Section */
+  .tasks {
+    background-color: #ffffff; /* White background for tasks */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .tasks h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+    text-transform: uppercase; /* Make the title uppercase for emphasis */
+    border-bottom: 2px solid #ddd; /* A subtle underline */
+    padding-bottom: 10px;
+  }
+  
+  .tasks ul {
+    list-style-type: none; /* Remove bullet points */
+    padding-left: 0;
+  }
+  
+  .tasks ul li {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 10px; /* Space between list items */
+    padding-left: 20px;
+    position: relative;
+  }
+  
+  .tasks ul li:before {
+    content: "•"; /* A bullet point */
+    position: absolute;
+    left: 0;
+    color: #007bff; /* Blue color for the bullet */
+    font-size: 1.5em;
+    top: 50%;
+    transform: translateY(-50%); /* Center the bullet vertically */
+  }
+  
+        .metrics h3, .achievements h3, .tasks h3 {
+            margin: 0;
+            margin-bottom: 10px;
+        }
+
+        /* Basic styling for the grid container */
+/* Basic styling for the grid container */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 350px)); /* Responsive grid */
+    gap: 20px; /* Spacing between grid items */
+    margin: 20px;
+  }
+  
+  /* Styling for each card */
+  .card {
+    background-color: #000041; /* Light background for the card */
+    border: 1px solid #ddd; /* Border around each card */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    text-align: center; /* Center the text inside the card */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+  }
+  
+  /* Hover effect for cards */
+  .card:hover {
+    transform: translateY(-5px); /* Lift card slightly on hover */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+    background-color: #5f5f61; /* Light background on hover */
+    color: #333; /* Change text color on hover */
+}
+
+  
+  /* Heading style inside the card */
+  .card h4 {
+    font-size: 1.2em;
+    color: #c6a8a8;
+    margin-bottom: 10px;
+  }
+  
+  /* Paragraph styling inside the card */
+  .card p {
+    font-size: 1.5em;
+    color: #ffffff;
+    font-weight: bold;
+  }
+
+  
+  /* Animation keyframes to increase values */
+  @keyframes increaseValue {
+    0% {
+      transform: translateY(20px); /* Start from below */
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Custom animation for the numbers and percentages */
+  .revenue, .roi, .growth {
+    display: inline-block;
+    animation: increaseValue 0.6s ease-in-out forwards;
+  }
+  
+  /* Specific animation delay for each value */
+  .revenue {
+    animation-delay: 0.2s; /* Delay for revenue */
+  }
+  
+  .roi {
+    animation-delay: 0.4s; /* Delay for ROI */
+  }
+  
+  .growth {
+    animation-delay: 0.6s; /* Delay for growth */
+  }
+  
+  /* To animate the values counting up from zero */
+  @keyframes countUp {
+    0% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  /* Add a counting animation effect */
+  .revenue::after {
+    
+    display: inline-block;
+    animation: countUp 1s ease-out forwards;
+  }
+  
+  .roi::after {
+    
+    display: inline-block;
+    animation: countUp 1s ease-out forwards;
+  }
+  
+  .growth::after {
+     
+    display: inline-block;
+    animation: countUp 1s ease-out forwards;
+  }
+  
