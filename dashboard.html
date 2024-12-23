@@ -5,79 +5,107 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
   <link rel="stylesheet" href="dashboard.css">
-  
-  <script>document.addEventListener("DOMContentLoaded", () => {
-    const durationDropdown = document.getElementById("duration");
-    const monthsDropdown = document.getElementById("months");
-    const startDateInput = document.getElementById("start-date");
-    const toField = document.getElementById("to");
-    const cityField = document.getElementById("city");
-    const totalOutput = document.getElementById("total-output");
-  
-    const calculateTotal = () => {
-      const duration = durationDropdown.value;
-      const months = monthsDropdown.value;
-      const startDateValue = startDateInput.value;
-  
-      if (duration === "select" || months === "select" || !startDateValue) {
-        totalOutput.textContent = "Please select valid options for duration, months, and start date.";
-        return;
-      }
-  
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("quotation-form");
+  const totalOutput = document.getElementById("total-output");
+  const durationField = document.getElementById("duration");
+  const monthsField = document.getElementById("months");
+
+  // Calculate total money whenever duration or months are changed
+  function calculateTotal() {
+    const duration = parseInt(durationField.value, 10);
+    const months = parseInt(monthsField.value, 10);
+
+    if (!isNaN(duration) && !isNaN(months)) {
       let pricePerMonth = 0;
-  
-      if (duration === "20") {
-        if (months === "1") pricePerMonth = 1000;
-        else if (months === "3") pricePerMonth = 3000;
-        else if (months === "6") pricePerMonth = 6000;
-        else if (months === "12") pricePerMonth = 12000;
-      } else if (duration === "30") {
-        if (months === "1") pricePerMonth = 1200;
-        else if (months === "3") pricePerMonth = 3600;
-        else if (months === "6") pricePerMonth = 7200;
-        else if (months === "12") pricePerMonth = 14400;
-      } else if (duration === "50") {
-        if (months === "1") pricePerMonth = 1500;
-        else if (months === "3") pricePerMonth = 4500;
-        else if (months === "6") pricePerMonth = 9000;
-        else if (months === "12") pricePerMonth = 18000;
+      if (duration === 20) {
+        pricePerMonth = 1000;
+      } else if (duration === 30) {
+        pricePerMonth = 1200;
+      } else if (duration === 50) {
+        pricePerMonth = 1500;
       }
-  
-      // Calculate end date
-      const startDate = new Date(startDateValue);
-      const endDate = new Date(startDate);
-      endDate.setMonth(endDate.getMonth() + parseInt(months));
-  
-      totalOutput.textContent = `Total Money: ₹${pricePerMonth}`;
-  
-      // Pass data to invoice.html via localStorage
-      localStorage.setItem("invoiceData", JSON.stringify({
-        to: toField.value,
-        city: cityField.value,
-        duration,
-        months,
-        startDate: startDate.toISOString().split("T")[0],
-        endDate: endDate.toISOString().split("T")[0],
-        total: pricePerMonth
-      }));
+
+      const total = pricePerMonth * months;
+      totalOutput.textContent = `Total Money: ₹${total}`;
+      return total;
+    }
+
+    totalOutput.textContent = "Total Money: ₹0";
+    return 0;
+  }
+
+  durationField.addEventListener("change", calculateTotal);
+  monthsField.addEventListener("change", calculateTotal);
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const total = calculateTotal();
+
+    // Get form values
+    const to = document.getElementById("to").value;
+    const city = document.getElementById("city").value;
+    const startDate = document.getElementById("start-date").value;
+    const duration = durationField.value;
+    const months = monthsField.value;
+
+    // Calculate end date
+    const endDateObj = new Date(startDate);
+    endDateObj.setMonth(endDateObj.getMonth() + parseInt(months));
+    const endDate = endDateObj.toISOString().split('T')[0];
+
+    // Store data in localStorage
+    const invoiceData = {
+      to,
+      city,
+      startDate,
+      endDate,
+      duration,
+      months,
+      total,
+      halftotal: total/2
     };
-  
-    // Add event listener for dropdown changes
-    monthsDropdown.addEventListener("change", calculateTotal);
-    durationDropdown.addEventListener("change", calculateTotal);
-    startDateInput.addEventListener("change", calculateTotal);
+    localStorage.setItem("invoiceData", JSON.stringify(invoiceData));
+
+    const formData = new FormData(form);
+    formData.append("total", total);
+
+    fetch("submit_quotation.php", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.success) {
+        alert("Quotation saved successfully!");
+        // Navigate to pl.html after successful submission
+        window.location.href = 'pl.html';
+      } else if (data.error) {
+        alert(data.error);
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("There was an error processing your request.");
+    });
   });
-  
+});
   </script>
-  
 </head>
 <body>
-  
   <div class="dashboard">
-    <div>   <img src="./images/header.png" alt="Company Logo" class="header-logo" style="max-width: 100%;"></div>
-  
+    <div>   
+      <img src="./images/header.png" alt="Company Logo" class="header-logo">
+    </div>
 
-    <!-- Quotation Form -->
     <div class="quotation">
       <h2>Generate Quotation</h2>
       <form id="quotation-form">
@@ -93,7 +121,6 @@
           <label for="start-date">Start Date:</label>
           <input type="date" id="start-date" name="start-date" required>
         </div>
-        
         <div class="form-group">
           <label for="duration">Duration (in seconds):</label>
           <select id="duration" name="duration" required>
@@ -113,19 +140,15 @@
             <option value="12">12 months</option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="description">Description:</label>
-          <p>The above pricing is valid only if we agree for a 6-month contract | Quote Validity: 1 Week</p>
-          <p>GST/Taxes Not Included in Pricing</p>
-        </div>
         <div class="output" id="total-output">Total Money: ₹0</div>
         
+        <button type="submit" >Generate Quotation</button>
       </form>
-      <a href="pl.html" target="_blank">Generate Invoice</a>
-      <div>   <img src="./images/footer.png" alt="Company Logo" class="header-logo" style="max-width: 100%;"></div>
     </div>
     
+    <div>   
+      <img src="./images/footer.png" alt="Company Logo" class="footer-logo">
+    </div>
   </div>
-  
 </body>
 </html>
